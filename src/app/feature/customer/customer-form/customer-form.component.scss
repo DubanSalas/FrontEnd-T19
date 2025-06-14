@@ -1,0 +1,93 @@
+.form-wrapper {
+  background: white;
+  border: 3px solid #800020;
+  border-radius: 8px;
+  padding: 18px;
+  margin: 100px auto;
+  max-width: 750px;
+  height: 450px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+  h2 {
+    text-align: center;
+    background-color: #800020;
+    color: white;
+    padding: 10px;
+    border-radius: 6px 6px 0 0;
+    margin: -15px -15px 15px;
+    font-size: 20px;
+  }
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Default: 3 columns for the first two rows */
+  gap: 10px;
+}
+
+.second-row,
+.third-row,
+.fourth-row {
+  grid-template-columns: repeat(2, 1fr); /* 2 columns for third and fourth rows */
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: bold;
+  color: #800020;
+}
+
+input,
+select {
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #800020;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+button {
+  padding: 12px 20px;
+  margin-top: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.register-button {
+  background-color: #04619b;
+}
+
+.delete-button {
+  background-color: #800020;
+}
+
+button i {
+  font-size: 18px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr; /* Stack the fields in a single column on smaller screens */
+  }
+
+  .button-container {
+    flex-direction: column;
+  }
+}

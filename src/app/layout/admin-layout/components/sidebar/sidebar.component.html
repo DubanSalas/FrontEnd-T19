@@ -1,0 +1,62 @@
+<div class="sidebar" [ngClass]="{'is-collapsed': !expanded}">
+  <!-- Línea superior -->
+  <div class="linea-arriba"></div>
+
+  <!-- Contenedor Bienvenido Admin y el icono de menú al costado -->
+  <div class="bienvenido-container">
+    <div class="bienvenido">
+      <span>Bienvenido Admin</span>
+    </div>
+    <div class="menu-icon" (click)="toggle()">
+      <mat-icon>menu</mat-icon> <!-- Icono de menú -->
+    </div>
+  </div>
+
+  <!-- Línea inferior de "Bienvenido Admin" -->
+  <div class="linea-abajo"></div>
+
+  <!-- Menú con opciones -->
+  <mat-nav-list *ngIf="expanded">
+    <mat-list-item [routerLink]="'/dashboard'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" 
+                   (click)="selectMenuItem('dashboard')" [ngClass]="{'active': selectedMenuItem === 'dashboard'}">
+      <mat-icon>dashboard</mat-icon> <span *ngIf="expanded">Dashboard</span>
+    </mat-list-item>
+
+    <mat-list-item [routerLink]="'/proveedores'" routerLinkActive="active" 
+                   (click)="selectMenuItem('proveedores')" [ngClass]="{'active': selectedMenuItem === 'proveedores'}">
+      <mat-icon>truck</mat-icon> <span *ngIf="expanded">Proveedores</span>
+    </mat-list-item>
+
+    <mat-list-item [routerLink]="'/empleados'" routerLinkActive="active" 
+                   (click)="selectMenuItem('empleados')" [ngClass]="{'active': selectedMenuItem === 'empleados'}">
+      <mat-icon>people</mat-icon> <span *ngIf="expanded">Empleados</span>
+    </mat-list-item>
+
+    <mat-list-item [routerLink]="'/clientes'" routerLinkActive="active" 
+                   (click)="selectMenuItem('clientes')" [ngClass]="{'active': selectedMenuItem === 'clientes'}">
+      <mat-icon>person</mat-icon> <span *ngIf="expanded">Clientes</span>
+    </mat-list-item>
+
+    <mat-list-item [routerLink]="'/productos'" routerLinkActive="active" 
+                   (click)="selectMenuItem('productos')" [ngClass]="{'active': selectedMenuItem === 'productos'}">
+      <mat-icon>store</mat-icon> <span *ngIf="expanded">Productos</span>
+    </mat-list-item>
+
+    <mat-list-item [routerLink]="'/ventas'" routerLinkActive="active" 
+                   (click)="selectMenuItem('ventas')" [ngClass]="{'active': selectedMenuItem === 'ventas'}">
+      <mat-icon>attach_money</mat-icon> <span *ngIf="expanded">Ventas</span>
+    </mat-list-item>
+
+    <mat-list-item [routerLink]="'/almacen'" routerLinkActive="active" 
+                   (click)="selectMenuItem('almacen')" [ngClass]="{'active': selectedMenuItem === 'almacen'}">
+      <mat-icon>warehouse</mat-icon> <span *ngIf="expanded">Almacén</span>
+    </mat-list-item>
+  </mat-nav-list>
+
+  <!-- Cerrar sesión -->
+  <div class="cerrar-sesion">
+    <button (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon> Cerrar Sesión
+    </button>
+  </div>
+</div>
