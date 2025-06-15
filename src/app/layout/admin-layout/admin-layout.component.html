@@ -1,12 +1,7 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #sidenav mode="side" opened>
-    <app-sidebar></app-sidebar>
-  </mat-sidenav>
+<app-header (toggle)="toggleSidebar()"></app-header>
 
-  <mat-sidenav-content>
-    <app-header></app-header>
-    <div class="main-content">
-      <router-outlet></router-outlet>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<app-sidebar [isCollapsed]="isSidebarCollapsed"></app-sidebar>
+
+<div class="main-content" [ngClass]="{ 'expanded': isSidebarCollapsed }">
+  <router-outlet></router-outlet>
+</div>

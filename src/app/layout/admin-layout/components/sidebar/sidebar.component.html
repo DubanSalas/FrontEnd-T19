@@ -1,46 +1,39 @@
-<div class="sidebar" [ngClass]="{'collapsed': isCollapsed}">
-  <!-- Logo siempre visible -->
-  <div class="logo">
-    <img src="assets/logo.png" alt="Logo" class="logo-img">
-    <span class="app-name">DeliPedidos</span>
-    <!-- Menú Hamburguesa para ocultar y mostrar el sidebar -->
-    <button mat-icon-button (click)="toggleSidebar()" class="menu-button">
-      <mat-icon>menu</mat-icon>
-    </button>
-  </div>
-
-  <!-- Contenido del sidebar (solo visible cuando no está colapsado) -->
-  <div *ngIf="!isCollapsed" class="sidebar-content">
-    <div class="admin-text">Bienvenido Admin</div>
-
-    <nav>
-      <a routerLink="/dashboard" routerLinkActive="active">
-        <mat-icon>dashboard</mat-icon> Dashboard
-      </a>
-      <a routerLink="/suppliers" routerLinkActive="active">
-        <mat-icon>local_shipping</mat-icon> Proveedores
-      </a>
-      <a routerLink="/employees" routerLinkActive="active">
-        <mat-icon>group</mat-icon> Empleados
-      </a>
-      <a routerLink="/customers" routerLinkActive="active">
-        <mat-icon>people</mat-icon> Clientes
-      </a>
-      <a routerLink="/products" routerLinkActive="active">
-        <mat-icon>inventory_2</mat-icon> Productos
-      </a>
-      <a routerLink="/sales" routerLinkActive="active">
-        <mat-icon>shopping_cart</mat-icon> Ventas
-      </a>
-      <a routerLink="/warehouse" routerLinkActive="active">
-        <mat-icon>store</mat-icon> Almacén
-      </a>
-    </nav>
+<div class="sidebar" [class.collapsed]="isCollapsed">
+  <nav>
+    <a routerLink="/dashboard" routerLinkActive="active">
+      <mat-icon>dashboard</mat-icon>
+      <span class="menu-text" [class.hidden]="isCollapsed">Dashboard</span>
+    </a>
+    <a routerLink="/suppliers" routerLinkActive="active">
+      <mat-icon>local_shipping</mat-icon>
+      <span class="menu-text" [class.hidden]="isCollapsed">Proveedores</span>
+    </a>
+    <a routerLink="/employees" routerLinkActive="active">
+      <mat-icon>group</mat-icon>
+      <span class="menu-text" [class.hidden]="isCollapsed">Empleados</span>
+    </a>
+    <a routerLink="/customer-list" routerLinkActive="active">
+      <mat-icon>people</mat-icon>
+      <span class="menu-text" [class.hidden]="isCollapsed">Clientes</span>
+    </a>
+    <a routerLink="/products" routerLinkActive="active">
+      <mat-icon>inventory_2</mat-icon>
+      <span class="menu-text" [class.hidden]="isCollapsed">Productos</span>
+    </a>
+    <a routerLink="/sales" routerLinkActive="active">
+      <mat-icon>shopping_cart</mat-icon>
+      <span class="menu-text" [class.hidden]="isCollapsed">Ventas</span>
+    </a>
+    <a routerLink="/warehouse" routerLinkActive="active">
+      <mat-icon>store</mat-icon>
+      <span class="menu-text" [class.hidden]="isCollapsed">Almacén</span>
+    </a>
 
     <div class="logout">
       <a routerLink="/login">
-        <mat-icon>logout</mat-icon> Cerrar Sesión
+        <mat-icon>logout</mat-icon>
+        <span class="menu-text" [class.hidden]="isCollapsed">Cerrar Sesión</span>
       </a>
     </div>
-  </div>
+  </nav>
 </div>

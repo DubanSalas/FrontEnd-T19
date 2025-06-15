@@ -1,118 +1,67 @@
-/* Estilos para el sidebar */
+$sidebar-width: 250px;
+$sidebar-collapsed-width: 80px;
+$header-height: 60px;
+
 .sidebar {
-  width: 250px;
-  height: 100%;
-  background-color: #7b1c38;
+  width: $sidebar-width;
+  height: calc(100vh - $header-height);
+  background-color: #850935;
+  padding: 10px;
+  box-sizing: border-box;
   color: white;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
+  transition: width 0.3s ease;
+  overflow: hidden;
   position: fixed;
-  top: 60px; /* Para evitar que se superponga al header */
+  top: $header-height;
   left: 0;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-  overflow-y: hidden; /* Ocultar contenido fuera del área visible */
-  transition: width 0.3s ease, padding 0.3s ease;
-}
+  z-index: 1000;
 
-.sidebar.collapsed {
-  width: 60px; /* Reduce el ancho solo cuando colapsamos el sidebar */
-  padding: 20px 10px; /* Reduce el padding cuando está colapsado */
-  overflow: hidden; /* Oculta el contenido */
-}
+  &.collapsed {
+    width: $sidebar-collapsed-width;
+  }
 
-/* El logo siempre visible */
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.logo-img {
-  width: 40px; /* Tamaño del logo */
-}
-
-.app-name {
-  font-size: 1.4rem;
-  font-weight: bold;
-  font-family: 'Georgia', serif;
-  display: block;
-}
-
-.menu-button {
-  color: white;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-/* Cuando el sidebar se colapsa, movemos el contenido hacia arriba */
-.sidebar-content {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  transition: transform 0.3s ease-out;
-  transform: translateY(0); /* Cuando está visible, no se mueve */
-}
-
-.sidebar.collapsed .sidebar-content {
-  transform: translateY(-100%); /* Mueve el contenido hacia arriba cuando está colapsado */
-}
-
-.admin-text {
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-
-  a {
-    color: white;
-    text-decoration: none;
-    padding: 12px 20px;
+  nav {
     display: flex;
-    align-items: center;
-    gap: 15px;
-    border-radius: 8px;
-    transition: background-color 0.2s ease;
+    flex-direction: column;
+    gap: 10px;
 
-    mat-icon {
-      font-size: 22px;
-    }
+    a {
+      display: flex;
+      align-items: center;
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background-color 0.2s;
 
-    .menu-text {
-      display: inline;
-      transition: opacity 0.2s;
-    }
+      mat-icon {
+        font-size: 24px;
+        margin-right: 10px;
+        min-width: 24px;
+      }
 
-    &:hover, &.active {
-      background-color: #a52c4a;
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      &.active {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+
+      .menu-text {
+        transition: opacity 0.3s ease;
+        white-space: nowrap;
+      }
+
+      .menu-text.hidden {
+        display: none;
+      }
     }
   }
-}
 
-.logout {
-  margin-top: auto;
-  a {
-    color: white;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 20px;
-    border-radius: 8px;
-
-    .menu-text {
-      display: inline;
-    }
-
-    &:hover {
-      background-color: #a52c4a;
-    }
+  .logout {
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
   }
 }

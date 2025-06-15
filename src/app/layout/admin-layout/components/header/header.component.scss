@@ -1,24 +1,62 @@
 .header-container {
+  height: 60px;
+  background-color: #850935;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  background-color: #850935; // Vinotinto
-  padding: 10px 20px;
-  border-radius: 20px;
+  justify-content: space-between;
+  padding: 0 20px;
   color: white;
-}
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1100;
 
-.title {
-  font-weight: bold;
-  font-size: 1.2rem;
-}
+  .left-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
-.icons {
-  display: flex;
-  gap: 15px;
-}
+    .logo {
+      height: 35px;
+    }
 
-.icon {
-  cursor: pointer;
-  font-size: 24px;
+    .app-name {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    button {
+      margin-left: 8px;
+    }
+  }
+
+  .center-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    max-width: 40%;
+    text-align: center;
+    background-color: #fff;
+    padding: 6px 14px;
+    border-radius: 14px;
+    color: #850935;
+    font-weight: bold;
+    font-size: 1.1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .icons {
+    display: flex;
+    gap: 15px;
+
+    .icon {
+      cursor: pointer;
+      font-size: 24px;
+    }
+  }
 }
