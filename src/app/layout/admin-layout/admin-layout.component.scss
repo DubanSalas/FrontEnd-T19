@@ -1,34 +1,7 @@
-/* admin-layout.component.scss */
-
-/* Sidebar */
-.sidebar {
-  width: 250px;  /* Define el ancho del sidebar */
-  position: fixed;  /* Asegura que la barra lateral se quede fija */
-  top: 0;
-  left: 0;
-  bottom: 0;
-  background-color: #5d0f0f; /* Color de fondo */
-  color: white;
-  padding-top: 20px;
-  z-index: 10;  /* Asegura que la barra lateral quede encima */
+.sidenav-container {
+  height: 100vh;
 }
 
-/* Contenido principal */
 .main-content {
-  margin-left: 250px;  /* Ajusta el contenido a la derecha del sidebar */
   padding: 20px;
-  background-color: #f8f8f8;
-  min-height: 100vh;  /* Asegura que el contenido tenga al menos el tamaño completo de la pantalla */
-}
-
-/* Responsividad */
-@media (max-width: 768px) {
-  .sidebar {
-    width: 200px;  /* Reduce el tamaño del sidebar en pantallas pequeñas */
-  }
-
-  .main-content {
-    margin-left: 0;  /* Elimina el margen en pantallas pequeñas */
-    padding: 10px;  /* Ajusta el padding en pantallas pequeñas */
-  }
 }

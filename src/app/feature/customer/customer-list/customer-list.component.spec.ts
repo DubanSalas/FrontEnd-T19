@@ -1,17 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CustomerListHtmlComponent } from './customer-list.component';  // Asegúrate de usar el nombre correcto
+import { CustomerListComponent } from './customer-list.component';
 
-describe('CustomerListHtmlComponent', () => {  // Cambié el nombre aquí también
-  let component: CustomerListHtmlComponent;
-  let fixture: ComponentFixture<CustomerListHtmlComponent>;
+
+describe('CustomerListComponent', () => {
+  let component: CustomerListComponent;
+  let fixture: ComponentFixture<CustomerListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CustomerListHtmlComponent]  // Asegúrate de usar el nombre correcto
+      imports: [CustomerListComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CustomerListHtmlComponent);
+    fixture = TestBed.createComponent(CustomerListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

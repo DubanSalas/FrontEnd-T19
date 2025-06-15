@@ -1,116 +1,118 @@
-/* Sidebar container */
+/* Estilos para el sidebar */
 .sidebar {
+  width: 250px;
+  height: 100%;
+  background-color: #7b1c38;
+  color: white;
   display: flex;
   flex-direction: column;
-  background-color: #7c0f34; /* Red background */
-  color: white;
-  width: 200px; /* Slightly increase sidebar width for better legibility */
-  height: calc(100vh - 60px); /* Adjusted for space below navbar */
-  padding: 10px;
+  padding: 20px;
   position: fixed;
-  top: 60px; /* Reduced the gap between navbar and sidebar */
+  top: 60px; /* Para evitar que se superponga al header */
   left: 0;
-  transition: transform 0.3s ease;
-  overflow-y: auto;
-  z-index: 999;
-  box-shadow: 3px 0 5px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow to the sidebar for depth */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  overflow-y: hidden; /* Ocultar contenido fuera del área visible */
+  transition: width 0.3s ease, padding 0.3s ease;
 }
 
-/* Linea superior */
-.sidebar .linea-arriba {
-  margin-bottom: 8px;
-  border-top: 2px solid white;
+.sidebar.collapsed {
+  width: 60px; /* Reduce el ancho solo cuando colapsamos el sidebar */
+  padding: 20px 10px; /* Reduce el padding cuando está colapsado */
+  overflow: hidden; /* Oculta el contenido */
 }
 
-/* Contenedor Bienvenido Admin y el icono del menú al costado */
-.sidebar .bienvenido-container {
+/* El logo siempre visible */
+.logo {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
-  font-size: 16px;
+  gap: 10px;
+}
+
+.logo-img {
+  width: 40px; /* Tamaño del logo */
+}
+
+.app-name {
+  font-size: 1.4rem;
   font-weight: bold;
-  color: white;
-  padding: 5px 0;
-}
-
-/* Icono del menú */
-.sidebar .menu-icon {
-  cursor: pointer;
-  font-size: 30px;
-  margin-left: 10px;
-  color: white;
-}
-
-/* Línea inferior de "Bienvenido Admin" */
-.sidebar .linea-abajo {
-  margin-bottom: 20px;
-  border-bottom: 2px solid white;
-}
-
-/* Menú con los íconos */
-.sidebar mat-nav-list {
-  margin-bottom: 0;
-  padding-left: 0;
-  padding-top: 0;
-}
-
-.sidebar mat-list-item {
-  padding: 15px 0;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  color: white;
-  font-size: 14px; /* Slightly smaller font size for better readability */
-  transition: background-color 0.3s ease;
-}
-
-/* Iconos del menú */
-.sidebar mat-list-item mat-icon {
-  margin-right: 15px;
-  font-size: 26px;
-}
-
-/* Resaltado de la opción seleccionada */
-.sidebar mat-list-item.active {
-  background-color: #6d1b28;
-  color: white;
-  border-radius: 5px;
-}
-
-/* Estilo para el botón de "Cerrar Sesión" */
-.sidebar .cerrar-sesion {
-  margin-top: auto;
-  padding-top: 20px;
-}
-
-.sidebar .cerrar-sesion button {
-  width: 100%;
-  padding: 17px;
-  background-color: #7c0f34;
-  border: none;
-  color: white;
-  cursor: pointer;
-  font-size: 18px;
-  display: flex;
-  border-radius: 5px;
-}
-
-.sidebar .cerrar-sesion button mat-icon {
-  margin-right: 10px;
-  font-size: 20px;
-}
-
-.sidebar .cerrar-sesion button:hover {
-  background-color: #3f0505;
-}
-
-/* Cambiar la visibilidad del menú */
-.sidebar mat-nav-list {
+  font-family: 'Georgia', serif;
   display: block;
 }
 
-.sidebar .is-collapsed {
-  display: none;
-  transform: translateX(-100%);
+.menu-button {
+  color: white;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* Cuando el sidebar se colapsa, movemos el contenido hacia arriba */
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.3s ease-out;
+  transform: translateY(0); /* Cuando está visible, no se mueve */
+}
+
+.sidebar.collapsed .sidebar-content {
+  transform: translateY(-100%); /* Mueve el contenido hacia arriba cuando está colapsado */
+}
+
+.admin-text {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  a {
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+
+    mat-icon {
+      font-size: 22px;
+    }
+
+    .menu-text {
+      display: inline;
+      transition: opacity 0.2s;
+    }
+
+    &:hover, &.active {
+      background-color: #a52c4a;
+    }
+  }
+}
+
+.logout {
+  margin-top: auto;
+  a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-radius: 8px;
+
+    .menu-text {
+      display: inline;
+    }
+
+    &:hover {
+      background-color: #a52c4a;
+    }
+  }
 }

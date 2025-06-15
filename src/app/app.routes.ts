@@ -1,16 +1,21 @@
 import { Routes } from '@angular/router';
-import { CustomerListHtmlComponent } from './feature/customer/customer-list/customer-list.component';
-import { CustomerFormComponent } from './feature/customer/customer-form/customer-form.component';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
+import { CustomerListComponent } from './feature/customer/customer-list/customer-list.component';
+import { CustomerFormComponent } from './feature/customer/customer-form/customer-form.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/customer-list', pathMatch: 'full' },
   {
     path: '',
-    component: AdminLayoutComponent,  // AdminLayoutComponent actúa como contenedor
+    component: AdminLayoutComponent,
     children: [
-      { path: 'customer-list', component: CustomerListHtmlComponent },
-      { path: 'customer-form', component: CustomerFormComponent },
+      {
+        path: 'customer-list',
+        component: CustomerListComponent
+      },
+      {
+        path: 'customers-form',
+        component: CustomerFormComponent
+      }
     ]
   }
 ];

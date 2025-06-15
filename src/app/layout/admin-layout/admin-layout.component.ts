@@ -1,30 +1,31 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+
+// Angular Material
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
+
+// Componentes del layout
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
-import { CommonModule } from '@angular/common';  // Importa CommonModule
-import { RouterModule } from '@angular/router';  // Importa RouterModule
-import { MatButtonModule } from '@angular/material/button';  // Si es necesario para los botones
-import { MatIconModule } from '@angular/material/icon';  // Importa MatIconModule para los íconos
 
 @Component({
   selector: 'app-admin-layout',
   standalone: true,
   imports: [
-    SidebarComponent, 
-    HeaderComponent, 
-    CommonModule, 
-    RouterModule, 
-    MatButtonModule, 
-    MatIconModule  // Asegúrate de agregar MatIconModule aquí
+    RouterModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatListModule,
+    MatButtonModule,
+    SidebarComponent,
+    HeaderComponent
   ],
   templateUrl: './admin-layout.component.html',
   styleUrls: ['./admin-layout.component.scss']
 })
-export class AdminLayoutComponent {
-  isSidebarCollapsed = false;  // Inicialmente la barra lateral está visible
-
-  // Método para alternar el estado de la barra lateral
-  toggleSidebar(): void {
-    this.isSidebarCollapsed = !this.isSidebarCollapsed;
-  }
-}
+export class AdminLayoutComponent {}
