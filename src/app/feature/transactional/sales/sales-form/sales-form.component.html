@@ -1,1 +1,88 @@
-<p>sales-form works!</p>
+<div class="sales-form-container">
+  <!-- Título de Registro de Ventas -->
+  <h1 class="registration-title">Registro de Ventas</h1>
+
+  <!-- Columna izquierda: Información de Venta -->
+  <mat-card class="sale-section">
+    <h2>Información de Venta</h2>
+    <form [formGroup]="saleForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Cliente</mat-label>
+        <mat-select formControlName="idCustomer">
+          <mat-option *ngFor="let customer of customers" [value]="customer.idCustomer">
+            {{ customer.name }} {{ customer.surname }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Empleado</mat-label>
+        <mat-select formControlName="idEmployee">
+          <mat-option *ngFor="let employee of employees" [value]="employee.idEmployee">
+            {{ employee.name }} {{ employee.surname }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Método de Pago</mat-label>
+        <mat-select formControlName="paymentMethod">
+          <mat-option value="Efectivo">Efectivo</mat-option>
+          <mat-option value="Yape">Yape</mat-option>
+          <mat-option value="Tarjeta">Tarjeta</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="button-row">
+        <button mat-raised-button color="primary" type="submit">Registrar</button>
+        <button mat-raised-button color="warn" type="button" (click)="onCancel()">Cancelar</button>
+      </div>
+    </form>
+  </mat-card>
+
+  <!-- Columna derecha: Detalles de Ventas -->
+  <mat-card class="sale-section">
+    <h2>Detalles de Ventas</h2>
+
+    <form [formGroup]="saleForm">
+      <!-- FormArray: detalles de la venta -->
+      <div formArrayName="details">
+        <div *ngFor="let detail of details.controls; let i = index" [formGroupName]="i" class="product-row">
+          <mat-form-field appearance="outline" class="small-width">
+            <mat-label>Producto</mat-label>
+            <mat-select formControlName="idProduct">
+              <mat-option *ngFor="let product of products" [value]="product.idProduct">
+                {{ product.productName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="tiny-width">
+            <mat-label>Cantidad</mat-label>
+            <input matInput type="number" formControlName="amount">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="tiny-width">
+            <mat-label>Precio</mat-label>
+            <input matInput type="number" formControlName="price">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="tiny-width">
+            <mat-label>Total</mat-label>
+            <input matInput [value]="getSubtotal(i) | number:'1.2-2'" disabled>
+          </mat-form-field>
+
+          <button mat-icon-button color="warn" (click)="removeDetail(i)">
+            <span class="material-icons">delete</span>
+          </button>
+        </div>
+      </div>
+
+      <button mat-raised-button color="accent" (click)="addDetail()">Agregar Producto</button>
+
+      <div class="total-sale">
+        <strong>Total Venta: {{ getTotal() | currency:'PEN' }}</strong>
+      </div>
+    </form>
+  </mat-card>
+</div>

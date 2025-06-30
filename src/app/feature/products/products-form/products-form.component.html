@@ -1,1 +1,148 @@
-<p>products-form works!</p>
+<div class="form-container">
+  <h2>{{ idProducto ? 'Editar Producto' : 'Nuevo Producto' }}</h2>
+
+  <form [formGroup]="productForm" (ngSubmit)="saveProduct()">
+
+    <input type="hidden" formControlName="storeIdStore" />
+
+    <div class="form-group name-group">
+      <label [ngClass]="{
+        'error-label': productName.invalid && productName.touched,
+        'warning-label': productName.errors?.['minlength'] && !productName.errors?.['required'] && productName.touched
+      }">Nombre de producto:</label>
+      <input
+        formControlName="productName"
+        type="text"
+        [ngClass]="{
+          'input-error': productName.invalid && productName.touched,
+          'input-warning': productName.errors?.['minlength'] && !productName.errors?.['required'] && productName.touched
+        }"
+        required
+      />
+      <div class="error" [class.show]="productName.invalid && productName.touched">
+        <small *ngIf="productName.errors?.['required']">El nombre es obligatorio.</small>
+        <small *ngIf="productName.errors?.['minlength']">El nombre debe tener al menos 3 caracteres.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label
+        for="description"
+        [ngClass]="{
+          'error-label': description.invalid && description.touched,
+          'warning-label': description.errors?.['minlength'] && !description.errors?.['required'] && description.touched
+        }"
+        >Descripción</label
+      >
+      <textarea
+        id="description"
+        formControlName="description"
+        placeholder="Describe brevemente el producto..."
+        [ngClass]="{
+          'input-error': description.invalid && description.touched,
+          'input-warning': description.errors?.['minlength'] && !description.errors?.['required'] && description.touched
+        }"
+      ></textarea>
+      <div class="error" *ngIf="description.invalid && description.touched">
+        <small *ngIf="description.errors?.['required']">La descripción es obligatoria.</small>
+        <small *ngIf="description.errors?.['minlength']">Debe tener al menos 10 caracteres.</small>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label
+          [ngClass]="{
+            'error-label': (price.invalid && price.touched) || (price.value !== null && price.value < 0),
+            'warning-label': price.value === 0 && price.touched && !price.invalid
+          }"
+          >Precio:</label
+        >
+        <input
+          type="number"
+          formControlName="price"
+          required
+          min="0"
+          step="0.01"
+          [ngClass]="{
+            'input-error': (price.invalid && price.touched) || (price.value !== null && price.value < 0),
+            'input-warning': price.value === 0 && price.touched && !price.invalid
+          }"
+        />
+        <div class="error" *ngIf="price.invalid && price.touched">
+          <small *ngIf="price.errors?.['required']">El precio es obligatorio.</small>
+          <small *ngIf="price.errors?.['min']">El precio no puede ser negativo.</small>
+        </div>
+        <div class="error warning" *ngIf="price.value === 0 && price.touched && !price.invalid" style="color: #e0a800;">
+          <small>El precio no puede ser 0.</small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label
+          [ngClass]="{
+            'error-label': (stock.invalid && stock.touched) || (stock.value !== null && stock.value < 0),
+            'warning-label': stock.value === 0 && stock.touched && !stock.invalid
+          }"
+          >Stock:</label
+        >
+        <input
+          type="number"
+          formControlName="stock"
+          required
+          min="0"
+          [ngClass]="{
+            'input-error': (stock.invalid && stock.touched) || (stock.value !== null && stock.value < 0),
+            'input-warning': stock.value === 0 && stock.touched && !stock.invalid
+          }"
+        />
+        <div class="error" *ngIf="stock.invalid && stock.touched">
+          <small *ngIf="stock.errors?.['required']">El stock es obligatorio.</small>
+          <small *ngIf="stock.errors?.['min']">El stock no puede ser negativo.</small>
+        </div>
+        <div class="error warning" *ngIf="stock.value === 0 && stock.touched && !stock.invalid" style="color: #e0a800;">
+          <small>El stock no puede ser 0.</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label
+        for="type"
+        [ngClass]="{
+          'error-label': type.invalid && type.touched
+        }"
+        >Tipo de producto</label
+      >
+      <select
+        id="type"
+        formControlName="type"
+        [ngClass]="{
+          'input-error': type.invalid && type.touched
+        }"
+      >
+        <option value="">Seleccione un tipo</option>
+        <option *ngFor="let option of typeOptions" [value]="option">{{ option }}</option>
+      </select>
+      <div class="error" *ngIf="type.invalid && type.touched">
+        <small *ngIf="type.errors?.['required']">Debe seleccionar un tipo de producto.</small>
+      </div>
+    </div>
+
+    <div class="form-group image-upload">
+      <label>Imagen del producto</label>
+      <div class="custom-file-input">
+        <input type="file" id="image" (change)="onImageSelected($event)" accept="image/*" />
+        <span>Seleccionar imagen</span>
+      </div>
+    </div>
+
+    <div *ngIf="imagePreview" class="image-preview">
+      <img [src]="imagePreview" alt="Vista previa de la imagen" />
+    </div>
+
+    <div class="button-group">
+      <button type="submit" [disabled]="productForm.invalid || price.value === 0 || stock.value === 0">Guardar</button>
+      <button type="button" (click)="cancelEdit()">Cancelar</button>
+    </div>
+  </form>
+</div>

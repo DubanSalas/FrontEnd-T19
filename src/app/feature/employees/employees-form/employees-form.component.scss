@@ -1,0 +1,107 @@
+.form-container {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #f0eaf3;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.form-title {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #850935;
+}
+
+.form-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+mat-form-field {
+  width: 100%;
+  background-color: #8a6387;
+
+  .mat-form-field-wrapper,
+  .mat-form-field-flex {
+    border-radius: 6px;
+  }
+}
+
+// Estilo base para el select de cargo
+mat-form-field.Administrador .mat-select-value {
+  background-color: #512da8; // morado oscuro
+  color: white;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+mat-form-field.Cajero .mat-select-value {
+  background-color: #00796b; // verde
+  color: white;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+mat-form-field.Supervisor .mat-select-value {
+  background-color: #f57c00; // naranja
+  color: white;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+mat-form-field.Vendedor .mat-select-value {
+  background-color: #1976d2; // azul
+  color: white;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.form-actions {
+  grid-column: span 2;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    grid-column: span 1;
+  }
+
+  button {
+    padding: 0.8rem 2rem;
+    font-weight: bold;
+    border-radius: 25px;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+  }
+
+  button[color='primary']:not(:disabled) {
+    background-color: #850935;
+    color: #fff;
+
+    &:hover {
+      background-color: #6a0729;
+    }
+  }
+
+  button[color='warn'] {
+    background-color: #ff4d4d;
+    color: #fff;
+
+    &:hover {
+      background-color: #c60000;
+    }
+  }
+}

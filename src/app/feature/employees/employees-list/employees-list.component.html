@@ -1,1 +1,77 @@
-<p>employees-list works!</p>
+<!-- Encabezado -->
+<div class="header-container">
+  <h2 class="title">Empleados</h2>
+
+  <div class="toolbar-actions">
+    <button mat-raised-button color="primary" (click)="goEmployeeForm()">+ Nuevo Empleado</button>
+
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Buscar</mat-label>
+      <input matInput [(ngModel)]="searchTerm" (ngModelChange)="applyFilter()" placeholder="Nombre o apellido" />
+    </mat-form-field>
+
+    <button mat-button [disabled]="state === 'A'" (click)="setState('A')">Activos</button>
+    <button mat-button [disabled]="state === 'I'" (click)="setState('I')">Inactivos</button>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- Tabla de empleados -->
+<div class="table-container">
+  <table mat-table [dataSource]="filteredData" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="idEmployee">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let e">{{ e.idEmployee }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Nombre</th>
+      <td mat-cell *matCellDef="let e">{{ e.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="surname">
+      <th mat-header-cell *matHeaderCellDef>Apellido</th>
+      <td mat-cell *matCellDef="let e">{{ e.surname }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="post">
+      <th mat-header-cell *matHeaderCellDef>Cargo</th>
+      <td mat-cell *matCellDef="let e" [ngClass]="{
+          'cargo-cajero': e.post === 'Cajero',
+          'cargo-administrador': e.post === 'Administrador',
+          'cargo-supervisor': e.post === 'Supervisor',
+          'cargo-vendedor': e.post === 'Vendedor'
+        }">{{ e.post }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef>Teléfono</th>
+      <td mat-cell *matCellDef="let e">{{ e.phone }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Estado</th>
+      <td mat-cell *matCellDef="let e">{{ e.status }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let e">
+        <button mat-icon-button color="primary" (click)="onEdit(e)" *ngIf="state === 'A'">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="delete(e.idEmployee!)" *ngIf="e.status === 'A'">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" (click)="restore(e.idEmployee!)" *ngIf="e.status === 'I'">
+          <mat-icon>restore</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

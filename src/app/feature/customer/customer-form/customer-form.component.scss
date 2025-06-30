@@ -1,0 +1,106 @@
+.form-container {
+  max-width: 800px;
+  margin: 3rem auto 1rem auto; // ⬅ margen superior para que no se solape
+  padding: 2rem;
+  background-color: #e4d9dc;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+}
+
+
+.form-title {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #070707; // Azul claro como el título en el ejemplo
+}
+
+.form-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+mat-form-field {
+  width: 100%;
+
+  // Estilo visual del campo
+  background-color: #977d95; // Morado oscuro
+  border-radius: 8px;
+
+  ::ng-deep .mat-form-field-wrapper {
+    padding: 0;
+  }
+
+  ::ng-deep .mat-form-field-flex {
+    background-color: #6b4b69;
+    color: white;
+    border-radius: 8px;
+  }
+
+  ::ng-deep .mat-input-element {
+    color: white;
+  }
+
+  ::ng-deep .mat-form-field-label {
+    color: #e0e0e0;
+  }
+
+  ::ng-deep .mat-form-field-outline {
+    border-color: transparent;
+  }
+}
+
+.form-actions {
+  grid-column: span 2;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+    grid-column: span 1;
+  }
+
+  button {
+    padding: 0.8rem 2rem;
+    font-weight: bold;
+    border-radius: 25px;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  // Botón ACEPTAR (activo)
+  button[color='primary']:not(:disabled) {
+    background-color: #00aaff;
+    color: #fff;
+
+    &:hover {
+      background-color: #0090cc;
+    }
+  }
+
+  // Botón ACEPTAR (deshabilitado)
+  button[color='primary']:disabled {
+    background-color: #4a4a4a;
+    color: #cccccc;
+    cursor: not-allowed;
+  }
+
+  // Botón CANCELAR
+  button[color='warn'] {
+    background-color: #ff4d4d;
+    color: #fff;
+
+    &:hover {
+      background-color: #cc0000;
+    }
+  }
+}

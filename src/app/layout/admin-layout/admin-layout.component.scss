@@ -2,13 +2,30 @@ $sidebar-width: 250px;
 $sidebar-collapsed-width: 80px;
 $header-height: 60px;
 
-.main-content {
-  margin-left: $sidebar-width;
-  padding: 20px;
-  padding-top: $header-height;
-  transition: margin-left 0.3s ease;
+.layout-container {
+  display: flex;
+  margin-top: $header-height;
+  height: calc(100vh - $header-height);
+  transition: all 0.3s ease;
+}
 
-  &.expanded {
-    margin-left: $sidebar-collapsed-width;
-  }
+.sidebar {
+  width: $sidebar-collapsed-width;
+  background-color: #850935;
+  color: white;
+  transition: width 0.3s ease;
+  overflow: hidden;
+  height: 100%;
+}
+
+.sidebar:hover {
+  width: $sidebar-width;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-x: auto;
+  transition: margin 0.3s ease;
 }

@@ -1,7 +1,9 @@
-<app-header (toggle)="toggleSidebar()"></app-header>
+<app-header></app-header>
 
-<app-sidebar [isCollapsed]="isSidebarCollapsed"></app-sidebar>
+<div class="layout-container">
+  <app-sidebar></app-sidebar>
 
-<div class="main-content" [ngClass]="{ 'expanded': isSidebarCollapsed }">
-  <router-outlet></router-outlet>
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
 </div>

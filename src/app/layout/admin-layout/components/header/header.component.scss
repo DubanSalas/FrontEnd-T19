@@ -1,62 +1,56 @@
 .header-container {
-  height: 60px;
-  background-color: #850935;
+  position: fixed; // 👈 Hace que el header quede fijo arriba
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1100; // 👈 Asegura que el header quede encima del sidebar
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
-  color: white;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1100;
 
-  .left-section {
+  height: 60px; // coincide con tu $header-height
+  padding: 0 16px;
+  background-color: #850935;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); // 👈 (opcional) da un efecto de sombra para distinguirlo
+
+  .left-section,
+  .center-section,
+  .right-section {
     display: flex;
     align-items: center;
-    gap: 10px;
+  }
 
+  .left-section {
     .logo {
-      height: 35px;
+      width: 120px;
+      height: auto;
+      margin-right: 20px;
     }
+  }
 
-    .app-name {
-      font-size: 0.95rem;
-      font-weight: 500;
+  .center-section {
+    flex: 1;
+    justify-content: center;
+
+    .title-bar {
+      background-color: rgba(255, 255, 255, 0.15);
+      padding: 8px 32px;
+      border-radius: 24px;
+      font-weight: 600;
+      font-size: 1.5rem;
+      user-select: none;
+      max-width: 500px;
+      text-align: center;
     }
+  }
+
+  .right-section {
+    gap: 16px;
+    padding-right: 16px; // 👈 agrega espacio a la derecha
 
     button {
-      margin-left: 8px;
-    }
-  }
-
-  .center-title {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: auto;
-    max-width: 40%;
-    text-align: center;
-    background-color: #fff;
-    padding: 6px 14px;
-    border-radius: 14px;
-    color: #850935;
-    font-weight: bold;
-    font-size: 1.1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .icons {
-    display: flex;
-    gap: 15px;
-
-    .icon {
-      cursor: pointer;
-      font-size: 24px;
+      color: white;
     }
   }
 }

@@ -1,19 +1,23 @@
 <header class="header-container">
   <div class="left-section">
-    <img src="assets/logo.png" alt="Logo" class="logo" />
-    <span class="app-name">DeliPedidos</span>
+    <img src="/src/assets/logo.png" alt="Logo" class="logo" />
 
-    <button mat-icon-button (click)="onToggleSidebar()">
-      <mat-icon>menu</mat-icon>
+  </div> <!-- cierre agregado -->
+
+  <div class="center-section">
+    <div class="title-bar">
+      <span class="project-title">Sistema de Administracion DeliPedidos</span>
+    </div>
+  </div>
+
+  <div class="right-section">
+    <button mat-icon-button aria-label="Notificaciones">
+      <mat-icon>notifications</mat-icon>
+      <!-- Aquí podrías poner un badge si hay notificaciones -->
     </button>
-  </div>
 
-  <div class="center-title">
-    <span class="title">Sistema de DeliPedidos</span>
-  </div>
-
-  <div class="icons">
-    <mat-icon class="icon">notifications</mat-icon>
-    <mat-icon class="icon">account_circle</mat-icon>
+    <button mat-icon-button aria-label="Perfil de usuario">
+      <mat-icon>account_circle</mat-icon>
+    </button>
   </div>
 </header>

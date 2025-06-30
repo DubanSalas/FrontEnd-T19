@@ -1,1 +1,83 @@
-<p>products-list works!</p>
+<div class="product-page-container">
+  <h2 class="section-title">Productos</h2>
+
+  <div class="product-toolbar">
+    <div class="action-buttons">
+      <button class="new-btn" (click)="createProduct()">+ Nuevo Producto</button>
+      <button class="report-btn" (click)="reportPdf()">📄 Generar reporte</button>
+    </div>
+
+    <input
+      type="text"
+      placeholder="Buscar"
+      [(ngModel)]="searchTerm"
+      (input)="filterProducts()"
+    />
+
+    <div class="filter-buttons">
+      <button
+        [class.active]="statusFilter === 'A'"
+        (click)="setStatusFilter('A')"
+      >
+        Activos
+      </button>
+      <button
+        [class.active]="statusFilter === 'I'"
+        (click)="setStatusFilter('I')"
+      >
+        Inactivos
+      </button>
+    </div>
+
+    <div class="type-filters">
+      <button
+        [class.active]="typeFilter === ''"
+        (click)="setTypeFilter('')"
+      >
+        Todos
+      </button>
+      <button
+        [class.active]="typeFilter === 'Pan'"
+        (click)="setTypeFilter('Pan')"
+      >
+        Panes
+      </button>
+      <button
+        [class.active]="typeFilter === 'Torta'"
+        (click)="setTypeFilter('Torta')"
+      >
+        Tortas
+      </button>
+      <button
+        [class.active]="typeFilter === 'Bocadito'"
+        (click)="setTypeFilter('Bocadito')"
+      >
+        Bocaditos
+      </button>
+    </div>
+  </div>
+
+  <div class="product-card-grid">
+    <div *ngFor="let product of filteredProducts" class="product-card">
+      <img
+        *ngIf="product.image"
+        [src]="'http://localhost:8085/uploads/products/' + product.image"
+        alt="{{ product.productName }}"
+        class="product-image"
+      />
+      <h3>{{ product.productName }}</h3>
+      <p><strong>Descripción:</strong> {{ product.description || '-' }}</p>
+      <p><strong>Precio:</strong> S/. {{ product.price }}</p>
+      <p><strong>Stock:</strong> {{ product.stock }}</p>
+      <p><strong>Tipo:</strong> {{ getProductType(product) }}</p>
+      <p><strong>Estado:</strong> {{ product.status === 'A' ? 'Activo' : 'Inactivo' }}</p>
+
+      <div class="actions">
+        <button *ngIf="product.status === 'A'" (click)="editProduct(product.idProduct)">✏️</button>
+        <button *ngIf="product.status === 'A'" (click)="confirmDeleteProduct(product)">🗑️</button>
+
+        <button *ngIf="product.status === 'I'" (click)="confirmReactivateProduct(product)">♻️ Reactivar</button>
+      </div>
+    </div>
+  </div>
+</div>
