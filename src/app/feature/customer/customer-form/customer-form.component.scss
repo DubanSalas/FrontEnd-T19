@@ -1,19 +1,20 @@
 .form-container {
   max-width: 800px;
-  margin: 3rem auto 1rem auto; // ⬅ margen superior para que no se solape
-  padding: 2rem;
-  background-color: #e4d9dc;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-  color: #ffffff;
+  margin: 2rem auto;
+  padding: 1.5rem 2rem;
+  background-color: #f5f5f5; // Fondo claro
+  border: 1px solid #ddd; // Borde simple
+  border-radius: 6px;
+  box-shadow: none;
+  color: #333;
 }
-
 
 .form-title {
   text-align: center;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
+  font-weight: 600;
   margin-bottom: 1.5rem;
-  color: #070707; // Azul claro como el título en el ejemplo
+  color: #222;
 }
 
 .form-grid {
@@ -28,32 +29,6 @@
 
 mat-form-field {
   width: 100%;
-
-  // Estilo visual del campo
-  background-color: #977d95; // Morado oscuro
-  border-radius: 8px;
-
-  ::ng-deep .mat-form-field-wrapper {
-    padding: 0;
-  }
-
-  ::ng-deep .mat-form-field-flex {
-    background-color: #6b4b69;
-    color: white;
-    border-radius: 8px;
-  }
-
-  ::ng-deep .mat-input-element {
-    color: white;
-  }
-
-  ::ng-deep .mat-form-field-label {
-    color: #e0e0e0;
-  }
-
-  ::ng-deep .mat-form-field-outline {
-    border-color: transparent;
-  }
 }
 
 .form-actions {
@@ -70,37 +45,33 @@ mat-form-field {
   }
 
   button {
-    padding: 0.8rem 2rem;
-    font-weight: bold;
-    border-radius: 25px;
-    text-transform: uppercase;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    padding: 0.6rem 1.5rem;
+    font-size: 14px;
+    border-radius: 4px;
+    text-transform: none;
   }
 
-  // Botón ACEPTAR (activo)
   button[color='primary']:not(:disabled) {
-    background-color: #00aaff;
+    background-color: #1976d2; // Azul normal de Angular Material
     color: #fff;
 
     &:hover {
-      background-color: #0090cc;
+      background-color: #1565c0;
     }
   }
 
-  // Botón ACEPTAR (deshabilitado)
   button[color='primary']:disabled {
-    background-color: #4a4a4a;
-    color: #cccccc;
+    background-color: #ccc;
+    color: #666;
     cursor: not-allowed;
   }
 
-  // Botón CANCELAR
   button[color='warn'] {
-    background-color: #ff4d4d;
+    background-color: #e53935;
     color: #fff;
 
     &:hover {
-      background-color: #cc0000;
+      background-color: #c62828;
     }
   }
 }

@@ -6,33 +6,37 @@
   <mat-card class="sale-section">
     <h2>Información de Venta</h2>
     <form [formGroup]="saleForm" (ngSubmit)="onSubmit()">
+      <!-- Cliente -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Cliente</mat-label>
-        <mat-select formControlName="idCustomer">
+        <mat-select formControlName="idCustomer" required>
           <mat-option *ngFor="let customer of customers" [value]="customer.idCustomer">
-            {{ customer.name }} {{ customer.surname }}
+            {{ customer.idCustomer }} - {{ customer.name }} {{ customer.surname }}
           </mat-option>
         </mat-select>
       </mat-form-field>
 
+      <!-- Empleado -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Empleado</mat-label>
-        <mat-select formControlName="idEmployee">
+        <mat-select formControlName="idEmployee" required>
           <mat-option *ngFor="let employee of employees" [value]="employee.idEmployee">
-            {{ employee.name }} {{ employee.surname }}
+            {{ employee.idEmployee }} - {{ employee.name }} {{ employee.surname }}
           </mat-option>
         </mat-select>
       </mat-form-field>
 
+      <!-- Método de Pago -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Método de Pago</mat-label>
-        <mat-select formControlName="paymentMethod">
+        <mat-select formControlName="paymentMethod" required>
           <mat-option value="Efectivo">Efectivo</mat-option>
           <mat-option value="Yape">Yape</mat-option>
           <mat-option value="Tarjeta">Tarjeta</mat-option>
         </mat-select>
       </mat-form-field>
 
+      <!-- Botones -->
       <div class="button-row">
         <button mat-raised-button color="primary" type="submit">Registrar</button>
         <button mat-raised-button color="warn" type="button" (click)="onCancel()">Cancelar</button>
@@ -42,44 +46,50 @@
 
   <!-- Columna derecha: Detalles de Ventas -->
   <mat-card class="sale-section">
-    <h2>Detalles de Ventas</h2>
+    <h2>Detalles de Venta</h2>
 
     <form [formGroup]="saleForm">
-      <!-- FormArray: detalles de la venta -->
       <div formArrayName="details">
         <div *ngFor="let detail of details.controls; let i = index" [formGroupName]="i" class="product-row">
+          <!-- Producto -->
           <mat-form-field appearance="outline" class="small-width">
             <mat-label>Producto</mat-label>
-            <mat-select formControlName="idProduct">
+            <mat-select formControlName="idProduct" required>
               <mat-option *ngFor="let product of products" [value]="product.idProduct">
-                {{ product.productName }}
+                {{ product.idProduct }} - {{ product.productName }}
               </mat-option>
             </mat-select>
           </mat-form-field>
 
+          <!-- Cantidad -->
           <mat-form-field appearance="outline" class="tiny-width">
             <mat-label>Cantidad</mat-label>
-            <input matInput type="number" formControlName="amount">
+            <input matInput type="number" formControlName="amount" min="1" required>
           </mat-form-field>
 
+          <!-- Precio -->
           <mat-form-field appearance="outline" class="tiny-width">
             <mat-label>Precio</mat-label>
-            <input matInput type="number" formControlName="price">
+            <input matInput type="number" formControlName="price" min="0.01" required>
           </mat-form-field>
 
+          <!-- Total (Calculado) -->
           <mat-form-field appearance="outline" class="tiny-width">
             <mat-label>Total</mat-label>
             <input matInput [value]="getSubtotal(i) | number:'1.2-2'" disabled>
           </mat-form-field>
 
-          <button mat-icon-button color="warn" (click)="removeDetail(i)">
-            <span class="material-icons">delete</span>
+          <!-- Botón Eliminar -->
+          <button mat-icon-button color="warn" (click)="removeDetail(i)" aria-label="Eliminar producto">
+            <mat-icon>delete</mat-icon>
           </button>
         </div>
       </div>
 
-      <button mat-raised-button color="accent" (click)="addDetail()">Agregar Producto</button>
+      <!-- Botón Agregar Producto -->
+      <button mat-raised-button color="accent" type="button" (click)="addDetail()">Agregar Producto</button>
 
+      <!-- Total General -->
       <div class="total-sale">
         <strong>Total Venta: {{ getTotal() | currency:'PEN' }}</strong>
       </div>

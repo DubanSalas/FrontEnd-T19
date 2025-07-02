@@ -1,1 +1,29 @@
-<p>suppliers-list works!</p>
+<div class="suppliers-container">
+  <h2>Suppliers</h2>
+
+  <button mat-flat-button color="primary" routerLink="/admin/suppliers/form" class="new-supplier-btn">
+    <mat-icon>add</mat-icon> New Supplier
+  </button>
+
+  <div class="card-grid">
+    <mat-card class="supplier-card" *ngFor="let supplier of suppliers">
+      <mat-card-header>
+        <mat-icon>business</mat-icon>
+        <mat-card-title>{{ supplier.name }} {{ supplier.surname }}</mat-card-title>
+        <mat-card-subtitle>{{ supplier.documentType }}: {{ supplier.documentNumber }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p><strong>Email:</strong> {{ supplier.email }}</p>
+        <p><strong>Phone:</strong> {{ supplier.phone || 'N/A' }}</p>
+        <p><strong>Address:</strong> {{ supplier.address || 'N/A' }}</p>
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <button mat-button color="primary" [routerLink]="['/admin/suppliers/form', supplier.idSupplier]">
+          <mat-icon>edit</mat-icon> Edit
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

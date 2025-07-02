@@ -1,0 +1,61 @@
+<div class="buys-list-container">
+  <h2>Lista de Compras</h2>
+
+  <button mat-raised-button color="primary" routerLink="/admin/buys/form">Nueva Compra</button>
+
+  <mat-table [dataSource]="buys" class="mat-elevation-z8" *ngIf="buys.length > 0; else noData">
+
+    <!-- ID -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let buy"> {{buy.id}} </mat-cell>
+    </ng-container>
+
+    <!-- Supplier -->
+    <ng-container matColumnDef="supplier">
+      <mat-header-cell *matHeaderCellDef> Proveedor </mat-header-cell>
+      <mat-cell *matCellDef="let buy">
+        {{ buy.supplier?.name || buy.idSupplier }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Purchase Date -->
+    <ng-container matColumnDef="purchaseDate">
+      <mat-header-cell *matHeaderCellDef> Fecha de Compra </mat-header-cell>
+      <mat-cell *matCellDef="let buy"> {{buy.purchaseDate | date}} </mat-cell>
+    </ng-container>
+
+    <!-- Total Amount -->
+    <ng-container matColumnDef="totalAmount">
+      <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
+      <mat-cell *matCellDef="let buy"> {{buy.totalAmount | currency}} </mat-cell>
+    </ng-container>
+
+    <!-- Payment Type -->
+    <ng-container matColumnDef="paymentType">
+      <mat-header-cell *matHeaderCellDef> Tipo de Pago </mat-header-cell>
+      <mat-cell *matCellDef="let buy"> {{buy.paymentType}} </mat-cell>
+    </ng-container>
+
+    <!-- Acciones -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+      <mat-cell *matCellDef="let buy">
+        <button mat-icon-button color="primary" [routerLink]="['/admin/buys/form', buy.id]">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteBuy(buy.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+  </mat-table>
+
+  <ng-template #noData>
+    <p>No hay compras registradas.</p>
+  </ng-template>
+</div>

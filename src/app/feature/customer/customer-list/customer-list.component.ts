@@ -79,6 +79,10 @@ export class CustomerListComponent implements OnInit {
 
   applyFilter(): void {
     const term = this.searchTerm.trim().toLowerCase();
+    if (!term) {
+      this.filteredData = this.dataSource;
+      return;
+    }
     this.filteredData = this.dataSource.filter(customer =>
       customer.name.toLowerCase().includes(term) ||
       customer.surname.toLowerCase().includes(term) ||
@@ -92,11 +96,19 @@ export class CustomerListComponent implements OnInit {
   }
 
   onEdit(customer: Customer): void {
+    if (!customer.idCustomer) {
+      Swal.fire('Error', 'El cliente no tiene un ID válido.', 'error');
+      return;
+    }
     this.customerService.setSelectedCustomer(customer);
     this.router.navigate(['/admin/customer/form']);
   }
 
-  delete(id: number): void {
+  delete(idCustomer: number): void {
+    if (!idCustomer) {
+      Swal.fire('Error', 'No se puede eliminar un cliente sin un ID válido.', 'error');
+      return;
+    }
     Swal.fire({
       title: '¿Deseas inactivar este cliente?',
       text: 'El cliente no se eliminará, solo cambiará a estado inactivo.',
@@ -106,7 +118,7 @@ export class CustomerListComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then(result => {
       if (result.isConfirmed) {
-        this.customerService.delete(id).subscribe({
+        this.customerService.delete(idCustomer).subscribe({
           next: () => {
             Swal.fire('Inactivado', 'Cliente inactivado correctamente.', 'success');
             this.loadCustomersByState();
@@ -119,7 +131,7 @@ export class CustomerListComponent implements OnInit {
     });
   }
 
-  restore(id: number): void {
+  restore(idCustomer: number): void {
     Swal.fire({
       title: '¿Deseas restaurar este cliente?',
       text: 'El cliente será marcado como activo nuevamente.',
@@ -129,7 +141,7 @@ export class CustomerListComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then(result => {
       if (result.isConfirmed) {
-        this.customerService.restore(id).subscribe({
+        this.customerService.restore(idCustomer).subscribe({
           next: () => {
             Swal.fire('Restaurado', 'Cliente restaurado correctamente.', 'success');
             this.loadCustomersByState();

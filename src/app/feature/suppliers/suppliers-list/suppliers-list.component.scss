@@ -1,0 +1,104 @@
+.suppliers-container {
+  padding: 2rem 3rem;
+  background-color: #f9fafb; /* color de fondo claro */
+  min-height: 100vh;
+
+  h2 {
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .new-supplier-btn {
+    margin-bottom: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #1976d2cc;
+      box-shadow: 0 4px 10px rgba(25, 118, 210, 0.3);
+    }
+  }
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.8rem;
+}
+
+.supplier-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  cursor: default;
+
+  &:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+  }
+
+  mat-card-header {
+    display: flex;
+    align-items: center;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e0e0e0;
+
+    mat-icon {
+      margin-right: 0.75rem;
+      color: #1976d2;
+      font-size: 28px;
+    }
+
+    mat-card-title {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #222;
+    }
+
+    mat-card-subtitle {
+      font-size: 0.9rem;
+      color: #666;
+      margin-left: auto;
+      font-style: italic;
+    }
+  }
+
+  mat-card-content {
+    font-size: 14px;
+    color: #444;
+    padding-top: 1rem;
+    p {
+      margin: 0.3rem 0;
+      strong {
+        color: #555;
+      }
+    }
+  }
+
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 0.75rem;
+
+    button {
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #1976d2;
+
+      mat-icon {
+        margin-right: 0.3rem;
+      }
+
+      &:hover {
+        background-color: #e3f2fd;
+      }
+    }
+  }
+}

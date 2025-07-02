@@ -18,8 +18,8 @@ export class ProductsListComponent implements OnInit {
   filteredProducts: Product[] = [];
 
   searchTerm: string = '';
-  statusFilter: string = 'A';
-  typeFilter: string = '';
+  statusFilter: string = 'A'; // By default, we show active products
+  typeFilter: string = ''; // If you need any specific type, you can handle it here
 
   constructor(private productService: ProductService, private router: Router) {}
 
@@ -40,13 +40,11 @@ export class ProductsListComponent implements OnInit {
     this.filteredProducts = this.products.filter(product => {
       const productName = product.productName?.toLowerCase() || '';
       const description = product.description?.toLowerCase() || '';
-      const type = product.type?.toLowerCase() || '';
 
       const matchesSearch = productName.includes(search) || description.includes(search);
       const matchesStatus = this.statusFilter ? product.status === this.statusFilter : true;
-      const matchesType = this.typeFilter ? type === this.typeFilter.toLowerCase() : true;
 
-      return matchesSearch && matchesStatus && matchesType;
+      return matchesSearch && matchesStatus;
     });
   }
 
@@ -56,11 +54,6 @@ export class ProductsListComponent implements OnInit {
 
   setStatusFilter(status: string) {
     this.statusFilter = this.statusFilter === status ? '' : status;
-    this.applyFilters();
-  }
-
-  setTypeFilter(type: string) {
-    this.typeFilter = this.typeFilter === type ? '' : type;
     this.applyFilters();
   }
 
@@ -93,13 +86,8 @@ export class ProductsListComponent implements OnInit {
       formData.append('price', product.price?.toString() || '0');
       formData.append('stock', product.stock?.toString() || '0');
       formData.append('status', product.status);
-      formData.append('type', product.type || '');
-      formData.append('storeIdStore', product.storeIdStore?.toString() || '1');
-
-      if (product.image && (product.image as any) instanceof File) {
-        formData.append('image', product.image);
-      }
-
+      formData.append('expirationDate', product.expirationDate || '');
+      
       this.productService.updateProduct(formData, product.idProduct).subscribe(() => {
         Swal.fire('Inactivado', 'Producto inactivado correctamente', 'success');
         this.loadProducts();
@@ -132,13 +120,8 @@ export class ProductsListComponent implements OnInit {
       formData.append('price', product.price?.toString() || '0');
       formData.append('stock', product.stock?.toString() || '0');
       formData.append('status', product.status);
-      formData.append('type', product.type || '');
-      formData.append('storeIdStore', product.storeIdStore?.toString() || '1');
-
-      if (product.image && (product.image as any) instanceof File) {
-        formData.append('image', product.image);
-      }
-
+      formData.append('expirationDate', product.expirationDate || '');
+      
       this.productService.updateProduct(formData, product.idProduct).subscribe(() => {
         Swal.fire('Restaurado', 'Producto restaurado correctamente', 'success');
         this.loadProducts();
@@ -148,10 +131,6 @@ export class ProductsListComponent implements OnInit {
 
   createProduct() {
     this.router.navigate(['/admin/products/form']);
-  }
-
-  getProductType(product: Product): string {
-    return product.type || '-';
   }
 
   // ✅ NUEVA FUNCIÓN PARA GENERAR REPORTE PDF

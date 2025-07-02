@@ -1,18 +1,18 @@
 .header-container {
-  position: fixed; // 👈 Hace que el header quede fijo arriba
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1100; // 👈 Asegura que el header quede encima del sidebar
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  height: 60px; // coincide con tu $header-height
+  height: 60px;
   padding: 0 16px;
-  background-color: #850935;
-  color: white;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); // 👈 (opcional) da un efecto de sombra para distinguirlo
+  background-color: #444; // Gris oscuro suave
+  color: #fff;
+  border-bottom: 1px solid #ccc;
 
   .left-section,
   .center-section,
@@ -23,9 +23,9 @@
 
   .left-section {
     .logo {
-      width: 120px;
+      width: 100px;
       height: auto;
-      margin-right: 20px;
+      margin-right: 16px;
     }
   }
 
@@ -34,23 +34,20 @@
     justify-content: center;
 
     .title-bar {
-      background-color: rgba(255, 255, 255, 0.15);
-      padding: 8px 32px;
-      border-radius: 24px;
-      font-weight: 600;
-      font-size: 1.5rem;
-      user-select: none;
-      max-width: 500px;
+      background-color: transparent;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #fff;
       text-align: center;
+      padding: 4px 12px;
     }
   }
 
   .right-section {
-    gap: 16px;
-    padding-right: 16px; // 👈 agrega espacio a la derecha
+    gap: 10px;
 
     button {
-      color: white;
+      color: #fff;
     }
   }
 }

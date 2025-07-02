@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -10,10 +10,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 
 import { SaleService } from '../../../../core/services/sales.service';
+import { CustomerService } from '../../../../core/services/customer.service';
+
 import { Customer } from '../../../../core/interfaces/customer-interfaces';
 import { Employee } from '../../../../core/interfaces/employees-interfaces';
 import { Product } from '../../../../core/interfaces/products-interfaces';
 import { Sale, SaleDetail } from '../../../../core/interfaces/sales-interfaces';
+import { EmployeeService } from '../../../../core/services/employees.service';
+import { ProductService } from '../../../../core/services/products.service';
 
 @Component({
   selector: 'app-sales-form',
@@ -40,13 +44,16 @@ export class SalesFormComponent implements OnInit {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private saleService = inject(SaleService);
+  private customerService = inject(CustomerService);
+  private employeeService = inject(EmployeeService);
+  private productService = inject(ProductService);
 
   ngOnInit(): void {
     this.saleForm = this.fb.group({
-      idCustomer: ['', Validators.required], // Store the selected customer ID
-      idEmployee: ['', Validators.required], // Store the selected employee ID
+      idCustomer: ['', Validators.required],
+      idEmployee: ['', Validators.required],
       paymentMethod: ['', Validators.required],
-      details: this.fb.array([this.createDetail()]) // Form array for sale details
+      details: this.fb.array([this.createDetail()])
     });
 
     this.loadCustomers();
@@ -60,9 +67,9 @@ export class SalesFormComponent implements OnInit {
 
   createDetail(): FormGroup {
     return this.fb.group({
-      idProduct: ['', Validators.required], // Store the selected product ID
-      amount: [1, [Validators.required, Validators.min(1)]], // Default quantity is 1
-      price: [0, [Validators.required, Validators.min(0.01)]] // Price can't be 0 or less
+      idProduct: ['', Validators.required],
+      amount: [1, [Validators.required, Validators.min(1)]],
+      price: [0, [Validators.required, Validators.min(0.01)]]
     });
   }
 
@@ -71,7 +78,9 @@ export class SalesFormComponent implements OnInit {
   }
 
   removeDetail(index: number): void {
-    this.details.removeAt(index);
+    if (this.details.length > 1) {
+      this.details.removeAt(index);
+    }
   }
 
   getSubtotal(index: number): number {
@@ -96,11 +105,11 @@ export class SalesFormComponent implements OnInit {
       const saleData: Sale = {
         idCustomer: form.idCustomer,
         idEmployee: form.idEmployee,
-        saleDate: new Date().toISOString().split('T')[0], // Current date
+        saleDate: new Date().toISOString().split('T')[0],
         paymentMethod: form.paymentMethod,
         total: this.getTotal(),
         details: form.details.map((d: any): SaleDetail => ({
-          idProduct: d.idProduct,  // Storing product ID
+          idProduct: d.idProduct,
           amount: d.amount,
           price: d.price,
           total: d.amount * d.price
@@ -109,7 +118,7 @@ export class SalesFormComponent implements OnInit {
 
       this.saleService.save(saleData).subscribe({
         next: () => this.router.navigate(['/admin/sales/list']),
-        error: (err) => console.error('Error al registrar la venta', err)
+        error: (err: any) => console.error('Error al registrar la venta', err)
       });
     }
   }
@@ -118,27 +127,24 @@ export class SalesFormComponent implements OnInit {
     this.router.navigate(['/admin/sales/list']);
   }
 
-  // Load active customers
   loadCustomers(): void {
-    this.saleService.getCustomers().subscribe({
-      next: (data) => this.customers = data.filter(c => c.status?.toLowerCase() === 'activo'), // Only active customers
-      error: (err) => console.error('Error cargando clientes', err)
+    this.customerService.findByStatus('activo').subscribe({
+      next: (data: Customer[]) => this.customers = data,
+      error: (err: any) => console.error('Error cargando clientes', err)
     });
   }
 
-  // Load active employees
   loadEmployees(): void {
-    this.saleService.getEmployees().subscribe({
-      next: (data) => this.employees = data.filter(e => e.status?.toLowerCase() === 'activo'), // Only active employees
-      error: (err) => console.error('Error cargando empleados', err)
+    this.employeeService.findByStatus('activo').subscribe({
+      next: (data: Employee[]) => this.employees = data,
+      error: (err: any) => console.error('Error cargando empleados', err)
     });
   }
 
-  // Load active products
   loadProducts(): void {
-    this.saleService.getProducts().subscribe({
-      next: (data) => this.products = data.filter(p => p.status?.toLowerCase() === 'activo'), // Only active products
-      error: (err) => console.error('Error cargando productos', err)
+    this.productService.getProductsByStatus('activo').subscribe({
+      next: (data: Product[]) => this.products = data,
+      error: (err: any) => console.error('Error cargando productos', err)
     });
   }
 }

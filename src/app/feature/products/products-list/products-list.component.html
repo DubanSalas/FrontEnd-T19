@@ -1,20 +1,20 @@
-<div class="product-page-container">
-  <h2 class="section-title">Productos</h2>
+<div class="product-table-container">
+  <h2 class="section-title">Listado de Productos</h2>
 
-  <div class="product-toolbar">
-    <div class="action-buttons">
-      <button class="new-btn" (click)="createProduct()">+ Nuevo Producto</button>
-      <button class="report-btn" (click)="reportPdf()">📄 Generar reporte</button>
+  <div class="toolbar">
+    <div class="actions">
+      <button class="btn green" (click)="createProduct()">Nuevo Producto</button>
+      <button class="btn purple" (click)="reportPdf()">Generar Reporte</button>
     </div>
 
     <input
       type="text"
-      placeholder="Buscar"
+      placeholder="Buscar producto..."
       [(ngModel)]="searchTerm"
       (input)="filterProducts()"
     />
 
-    <div class="filter-buttons">
+    <div class="filters">
       <button
         [class.active]="statusFilter === 'A'"
         (click)="setStatusFilter('A')"
@@ -28,56 +28,38 @@
         Inactivos
       </button>
     </div>
-
-    <div class="type-filters">
-      <button
-        [class.active]="typeFilter === ''"
-        (click)="setTypeFilter('')"
-      >
-        Todos
-      </button>
-      <button
-        [class.active]="typeFilter === 'Pan'"
-        (click)="setTypeFilter('Pan')"
-      >
-        Panes
-      </button>
-      <button
-        [class.active]="typeFilter === 'Torta'"
-        (click)="setTypeFilter('Torta')"
-      >
-        Tortas
-      </button>
-      <button
-        [class.active]="typeFilter === 'Bocadito'"
-        (click)="setTypeFilter('Bocadito')"
-      >
-        Bocaditos
-      </button>
-    </div>
   </div>
 
-  <div class="product-card-grid">
-    <div *ngFor="let product of filteredProducts" class="product-card">
-      <img
-        *ngIf="product.image"
-        [src]="'http://localhost:8085/uploads/products/' + product.image"
-        alt="{{ product.productName }}"
-        class="product-image"
-      />
-      <h3>{{ product.productName }}</h3>
-      <p><strong>Descripción:</strong> {{ product.description || '-' }}</p>
-      <p><strong>Precio:</strong> S/. {{ product.price }}</p>
-      <p><strong>Stock:</strong> {{ product.stock }}</p>
-      <p><strong>Tipo:</strong> {{ getProductType(product) }}</p>
-      <p><strong>Estado:</strong> {{ product.status === 'A' ? 'Activo' : 'Inactivo' }}</p>
-
-      <div class="actions">
-        <button *ngIf="product.status === 'A'" (click)="editProduct(product.idProduct)">✏️</button>
-        <button *ngIf="product.status === 'A'" (click)="confirmDeleteProduct(product)">🗑️</button>
-
-        <button *ngIf="product.status === 'I'" (click)="confirmReactivateProduct(product)">♻️ Reactivar</button>
-      </div>
-    </div>
-  </div>
+  <table class="product-table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Precio</th>
+        <th>Stock</th>
+        <th>Expiración</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of filteredProducts">
+        <td>{{ product.productName }}</td>
+        <td>{{ product.description || '-' }}</td>
+        <td>S/. {{ product.price }}</td>
+        <td>{{ product.stock }}</td>
+        <td>{{ product.expirationDate }}</td>
+        <td>
+          <span [class.active]="product.status === 'A'" [class.inactive]="product.status === 'I'">
+            {{ product.status === 'A' ? 'Activo' : 'Inactivo' }}
+          </span>
+        </td>
+        <td>
+          <button class="btn small" *ngIf="product.status === 'A'" (click)="editProduct(product.idProduct)">Editar</button>
+          <button class="btn small danger" *ngIf="product.status === 'A'" (click)="confirmDeleteProduct(product)">Eliminar</button>
+          <button class="btn small blue" *ngIf="product.status === 'I'" (click)="confirmReactivateProduct(product)">Reactivar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

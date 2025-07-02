@@ -1,17 +1,20 @@
 .form-container {
   max-width: 800px;
-  margin: 3rem auto;
-  padding: 2rem;
-  background-color: #f0eaf3;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  margin: 2rem auto;
+  padding: 1.5rem 2rem;
+  background-color: #f5f5f5; // Fondo claro neutro
+  border: 1px solid #ddd; // Borde tenue
+  border-radius: 6px;
+  box-shadow: none;
+  color: #333;
 }
 
 .form-title {
   text-align: center;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
+  font-weight: 600;
   margin-bottom: 1.5rem;
-  color: #850935;
+  color: #222;
 }
 
 .form-grid {
@@ -26,43 +29,46 @@
 
 mat-form-field {
   width: 100%;
-  background-color: #8a6387;
+  background-color: transparent;
 
-  .mat-form-field-wrapper,
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+
   .mat-form-field-flex {
-    border-radius: 6px;
+    background-color: #fff;
   }
 }
 
-// Estilo base para el select de cargo
+// Estilos simples por tipo de cargo (suaves y sin destacar demasiado)
 mat-form-field.Administrador .mat-select-value {
-  background-color: #512da8; // morado oscuro
-  color: white;
-  font-weight: bold;
+  background-color: #ede7f6;
+  color: #4527a0;
+  font-weight: 500;
   padding: 4px 8px;
   border-radius: 4px;
 }
 
 mat-form-field.Cajero .mat-select-value {
-  background-color: #00796b; // verde
-  color: white;
-  font-weight: bold;
+  background-color: #e0f2f1;
+  color: #00695c;
+  font-weight: 500;
   padding: 4px 8px;
   border-radius: 4px;
 }
 
 mat-form-field.Supervisor .mat-select-value {
-  background-color: #f57c00; // naranja
-  color: white;
-  font-weight: bold;
+  background-color: #fff3e0;
+  color: #ef6c00;
+  font-weight: 500;
   padding: 4px 8px;
   border-radius: 4px;
 }
 
 mat-form-field.Vendedor .mat-select-value {
-  background-color: #1976d2; // azul
-  color: white;
-  font-weight: bold;
+  background-color: #e3f2fd;
+  color: #1976d2;
+  font-weight: 500;
   padding: 4px 8px;
   border-radius: 4px;
 }
@@ -80,28 +86,27 @@ mat-form-field.Vendedor .mat-select-value {
   }
 
   button {
-    padding: 0.8rem 2rem;
-    font-weight: bold;
-    border-radius: 25px;
-    text-transform: uppercase;
-    transition: background-color 0.3s ease;
+    padding: 0.6rem 1.5rem;
+    font-size: 14px;
+    border-radius: 4px;
+    text-transform: none;
   }
 
   button[color='primary']:not(:disabled) {
-    background-color: #850935;
+    background-color: #1976d2;
     color: #fff;
 
     &:hover {
-      background-color: #6a0729;
+      background-color: #1565c0;
     }
   }
 
   button[color='warn'] {
-    background-color: #ff4d4d;
+    background-color: #e53935;
     color: #fff;
 
     &:hover {
-      background-color: #c60000;
+      background-color: #c62828;
     }
   }
 }

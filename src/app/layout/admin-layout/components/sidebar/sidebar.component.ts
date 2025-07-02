@@ -11,8 +11,7 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
-  @Input() isCollapsed = false;    // <-- Esto falta y es obligatorio
-
+  @Input() isCollapsed = false;
   @Output() toggle = new EventEmitter<void>();
 
   onToggle() {

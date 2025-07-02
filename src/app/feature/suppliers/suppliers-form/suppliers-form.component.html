@@ -1,1 +1,82 @@
-<p>suppliers-form works!</p>
+<form [formGroup]="supplierForm" (ngSubmit)="onSubmit()">
+  <h2>{{ isEditMode ? 'Edit Supplier' : 'New Supplier' }}</h2>
+
+  <!-- Tipo de documento -->
+  <mat-form-field appearance="outline">
+    <mat-label>Document Type</mat-label>
+    <mat-select formControlName="documentType" required>
+      <mat-option value="DNI">DNI</mat-option>
+      <mat-option value="RUC">RUC</mat-option>
+      <mat-option value="CE">CE</mat-option>
+    </mat-select>
+    <mat-error *ngIf="supplierForm.get('documentType')?.hasError('required')">
+      Document type is required
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Número de documento -->
+  <mat-form-field appearance="outline">
+    <mat-label>Document Number</mat-label>
+    <input matInput formControlName="documentNumber" required maxlength="20" />
+    <mat-error *ngIf="supplierForm.get('documentNumber')?.hasError('required')">
+      Document number is required
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Nombres -->
+  <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" required />
+    <mat-error *ngIf="supplierForm.get('name')?.hasError('required')">
+      Name is required
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Apellidos -->
+  <mat-form-field appearance="outline">
+    <mat-label>Surname</mat-label>
+    <input matInput formControlName="surname" required />
+    <mat-error *ngIf="supplierForm.get('surname')?.hasError('required')">
+      Surname is required
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Dirección -->
+  <mat-form-field appearance="outline">
+    <mat-label>Address</mat-label>
+    <input matInput formControlName="address" />
+  </mat-form-field>
+
+  <!-- Teléfono -->
+  <mat-form-field appearance="outline">
+    <mat-label>Phone</mat-label>
+    <input matInput formControlName="phone" />
+  </mat-form-field>
+
+  <!-- Correo electrónico -->
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" required type="email" />
+    <mat-error *ngIf="supplierForm.get('email')?.hasError('required')">
+      Email is required
+    </mat-error>
+    <mat-error *ngIf="supplierForm.get('email')?.hasError('email')">
+      Enter a valid email
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Estado (solo en edición) -->
+  <mat-slide-toggle
+    *ngIf="isEditMode"
+    formControlName="status"
+    [checked]="supplierForm.get('status')?.value === 'A'"
+    (change)="onStatusToggle($event.checked)"
+  >
+    Active
+  </mat-slide-toggle>
+
+  <!-- Botón de guardar -->
+  <button mat-flat-button color="primary" type="submit" [disabled]="supplierForm.invalid">
+    {{ isEditMode ? 'Update' : 'Save' }}
+  </button>
+</form>

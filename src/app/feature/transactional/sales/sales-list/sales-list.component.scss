@@ -1,126 +1,63 @@
 .sales-list-container {
-  padding: 24px;
-  background-color: #fdfdfd;
-  border-radius: 12px;
+  padding: 16px;
+  background-color: #fafafa;
   color: #333;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
 }
 
 .sales-title {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #d32f2f;
+  font-size: 1.5rem;
   margin-bottom: 16px;
 }
 
 .sales-toolbar {
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 
   button {
-    background-color: #1976d2;
-    color: white;
-    font-weight: bold;
-    padding: 10px 24px;
-    border-radius: 8px;
-
-    &:hover {
-      background-color: #0d47a1;
-    }
+    font-size: 0.9rem;
+    padding: 8px 16px;
   }
 }
 
 mat-expansion-panel {
   margin-bottom: 12px;
-  border-radius: 8px;
-  background-color: #fff;
 
   .mat-expansion-panel-header {
-    background-color: #e3f2fd;
-    padding: 12px 16px;
+    background-color: #e0e0e0;
     font-weight: bold;
-    color: #1e88e5;
   }
 }
 
 .sale-info {
   padding: 12px;
-  background-color: #f9f9f9;
-  border-left: 5px solid #1976d2;
-  border-radius: 8px;
-  margin-top: 10px;
+  background-color: #f5f5f5;
+  border-left: 4px solid #1976d2;
+  border-radius: 4px;
 
-  div {
-    margin: 6px 0;
-    font-size: 1rem;
-    color: #424242;
-  }
-
-  strong {
-    color: #00796b;
-  }
-
-  .payment-chip {
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-  }
-
-  .efectivo {
-    background-color: #4caf50;
-    color: white;
-  }
-
-  .yape {
-    background-color: #7c4dff;
-    color: white;
+  p {
+    margin: 4px 0;
   }
 }
 
 .details-table-container {
-  margin-top: 16px;
+  margin-top: 12px;
 
-  h3.details-title {
+  h3 {
+    font-size: 1.1rem;
     margin-bottom: 8px;
-    font-weight: bold;
-    color: #f57c00;
   }
 
   table {
     width: 100%;
-    border-collapse: collapse;
-    border-radius: 8px;
-    overflow: hidden;
 
-    th {
-      background: #90caf9;
-      color: #212121;
-      padding: 10px;
-      text-align: left;
-    }
-
+    th,
     td {
-      background: #ffffff;
-      color: #424242;
-      padding: 10px;
-    }
-
-    tr:nth-child(even) td {
-      background: #f1f1f1;
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ccc;
     }
 
     tr:hover td {
-      background: #e0f7fa;
+      background-color: #f0f0f0;
     }
   }
-}
-
-.sale-code {
-  font-weight: bold;
-  color: #0288d1;
-  font-size: 1.1rem;
 }

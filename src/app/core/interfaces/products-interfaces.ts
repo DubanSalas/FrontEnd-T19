@@ -1,11 +1,10 @@
 export interface Product {
   idProduct: number;
-  storeIdStore?: number;
   productName: string;
   description?: string;
   price: number;
   stock: number;
+  expirationDate: string; // Fecha de expiración en formato 'YYYY-MM-DD'
   status: string; // 'A' = activo, 'I' = inactivo
-  type?: string;      // nuevo campo tipo (ej: "pan", "torta", "bocadito")
-  image?: string;     // url o ruta de la imagen
+  type?: string; // Tipo de producto (ejemplo: 'Pan', 'Torta', 'Bocadito')
 }

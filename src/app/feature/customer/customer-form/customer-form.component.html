@@ -97,18 +97,28 @@
       </mat-error>
     </mat-form-field>
 
-    <!-- Fecha de nacimiento -->
+    <!-- Fecha de nacimiento (con Datepicker) -->
     <mat-form-field appearance="fill">
       <mat-label>Fecha de nacimiento</mat-label>
-      <input matInput type="date" formControlName="dateBirth" />
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="dateBirth"
+        readonly
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
       <mat-error *ngIf="customerForm.get('dateBirth')?.hasError('required')">
         Campo obligatorio.
+      </mat-error>
+      <mat-error *ngIf="customerForm.get('dateBirth')?.hasError('underage')">
+        Debes ser mayor de edad.
       </mat-error>
     </mat-form-field>
 
     <!-- Botones -->
     <div class="form-actions">
-      <button mat-raised-button color="primary" type="submit" [disabled]="customerForm.invalid">Aceptar</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="isButtonDisabled">Aceptar</button>
       <button mat-raised-button color="warn" type="button" (click)="onCancel()">Cancelar</button>
     </div>
   </form>

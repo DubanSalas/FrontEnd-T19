@@ -2,9 +2,11 @@
   <h2>{{ idProducto ? 'Editar Producto' : 'Nuevo Producto' }}</h2>
 
   <form [formGroup]="productForm" (ngSubmit)="saveProduct()">
-
+    
+    <!-- Campo oculto para storeIdStore (no se utilizará) -->
     <input type="hidden" formControlName="storeIdStore" />
 
+    <!-- Nombre del producto -->
     <div class="form-group name-group">
       <label [ngClass]="{
         'error-label': productName.invalid && productName.touched,
@@ -25,15 +27,13 @@
       </div>
     </div>
 
+    <!-- Descripción del producto -->
     <div class="form-group">
-      <label
-        for="description"
+      <label for="description"
         [ngClass]="{
           'error-label': description.invalid && description.touched,
           'warning-label': description.errors?.['minlength'] && !description.errors?.['required'] && description.touched
-        }"
-        >Descripción</label
-      >
+        }">Descripción</label>
       <textarea
         id="description"
         formControlName="description"
@@ -49,6 +49,7 @@
       </div>
     </div>
 
+    <!-- Fila de precio y stock -->
     <div class="form-row">
       <div class="form-group">
         <label
@@ -56,8 +57,7 @@
             'error-label': (price.invalid && price.touched) || (price.value !== null && price.value < 0),
             'warning-label': price.value === 0 && price.touched && !price.invalid
           }"
-          >Precio:</label
-        >
+          >Precio:</label>
         <input
           type="number"
           formControlName="price"
@@ -83,8 +83,7 @@
             'error-label': (stock.invalid && stock.touched) || (stock.value !== null && stock.value < 0),
             'warning-label': stock.value === 0 && stock.touched && !stock.invalid
           }"
-          >Stock:</label
-        >
+          >Stock:</label>
         <input
           type="number"
           formControlName="stock"
@@ -105,6 +104,22 @@
       </div>
     </div>
 
+    <!-- Fecha de expiración -->
+    <div class="form-group">
+      <label for="expirationDate">Fecha de Expiración</label>
+      <input
+        type="date"
+        formControlName="expirationDate"
+        [ngClass]="{
+          'input-error': expirationDate.invalid && expirationDate.touched
+        }"
+      />
+      <div class="error" *ngIf="expirationDate.invalid && expirationDate.touched">
+        <small *ngIf="expirationDate.errors?.['required']">La fecha de expiración es obligatoria.</small>
+      </div>
+    </div>
+
+    <!-- Tipo de producto -->
     <div class="form-group">
       <label
         for="type"
@@ -121,23 +136,13 @@
         }"
       >
         <option value="">Seleccione un tipo</option>
-        <option *ngFor="let option of typeOptions" [value]="option">{{ option }}</option>
+        <option value="Pan">Pan</option>
+        <option value="Torta">Torta</option>
+        <option value="Bocadito">Bocadito</option>
       </select>
       <div class="error" *ngIf="type.invalid && type.touched">
         <small *ngIf="type.errors?.['required']">Debe seleccionar un tipo de producto.</small>
       </div>
-    </div>
-
-    <div class="form-group image-upload">
-      <label>Imagen del producto</label>
-      <div class="custom-file-input">
-        <input type="file" id="image" (change)="onImageSelected($event)" accept="image/*" />
-        <span>Seleccionar imagen</span>
-      </div>
-    </div>
-
-    <div *ngIf="imagePreview" class="image-preview">
-      <img [src]="imagePreview" alt="Vista previa de la imagen" />
     </div>
 
     <div class="button-group">
