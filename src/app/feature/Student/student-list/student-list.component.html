@@ -1,0 +1,166 @@
+<mat-card class="student-list-card">
+  <div class="title-container">
+    <h1>Listado de Estudiantes</h1>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filters">
+    <div class="filter-fields">
+
+      <!-- Buscar por nombre o apellido -->
+      <div class="filter-field">
+        <label><mat-icon>search</mat-icon> Buscar nombre o apellido</label>
+        <mat-form-field appearance="outline" class="full-width">
+          <input matInput [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange()" placeholder="Buscar..." />
+        </mat-form-field>
+      </div>
+
+      <!-- Departamento -->
+      <div class="filter-field">
+        <label><mat-icon>public</mat-icon> Departamento</label>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-select [(ngModel)]="filterDepartment" (selectionChange)="onDepartmentChange()">
+            <mat-option value="">Todos</mat-option>
+            <mat-option *ngFor="let d of uniqueDepartments" [value]="d">{{ d }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Provincia -->
+      <div class="filter-field">
+        <label><mat-icon>location_city</mat-icon> Provincia</label>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-select [(ngModel)]="filterProvince" (selectionChange)="onProvinceChange()" [disabled]="!enableProvince">
+            <mat-option value="">Todas</mat-option>
+            <mat-option *ngFor="let p of uniqueProvinces" [value]="p">{{ p }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Distrito -->
+      <div class="filter-field">
+        <label><mat-icon>map</mat-icon> Distrito</label>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-select [(ngModel)]="filterDistrict" (selectionChange)="onSearchChange()" [disabled]="!enableDistrict">
+            <mat-option value="">Todos</mat-option>
+            <mat-option *ngFor="let d of uniqueDistricts" [value]="d">{{ d }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Edad exacta -->
+      <div class="filter-field">
+        <label><mat-icon>person</mat-icon> Edad exacta</label>
+        <mat-form-field appearance="outline" class="full-width">
+          <input matInput type="number" [(ngModel)]="filterAge" (ngModelChange)="onSearchChange()" placeholder="Ej. 20" />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="action-buttons">
+      <button mat-raised-button color="primary" (click)="goStudentForm()">
+        <mat-icon>person_add</mat-icon> Nuevo Estudiante
+      </button>
+
+      <button mat-stroked-button color="accent" (click)="reportPdf()">
+        <mat-icon>picture_as_pdf</mat-icon> Generar PDF
+      </button>
+
+      <button mat-button [disabled]="state === 'A'" (click)="setState('A')" class="state-button active">
+        Activos
+      </button>
+
+      <button mat-button [disabled]="state === 'I'" (click)="setState('I')" class="state-button inactive">
+        Inactivos
+      </button>
+    </div>
+  </div>
+
+  <!-- Tabla de estudiantes -->
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z2">
+    <ng-container matColumnDef="idStudent">
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let s"> {{ s.idStudent }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="documentType">
+      <mat-header-cell *matHeaderCellDef> Tipo Doc </mat-header-cell>
+      <mat-cell *matCellDef="let s"> {{ s.documentType }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="documentNumber">
+      <mat-header-cell *matHeaderCellDef> Nro Doc </mat-header-cell>
+      <mat-cell *matCellDef="let s"> {{ s.documentNumber }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+      <mat-cell *matCellDef="let s"> {{ s.name }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="surname">
+      <mat-header-cell *matHeaderCellDef> Apellido </mat-header-cell>
+      <mat-cell *matCellDef="let s"> {{ s.surname }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="address">
+      <mat-header-cell *matHeaderCellDef> Dirección </mat-header-cell>
+      <mat-cell *matCellDef="let s"> {{ s.address }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <mat-header-cell *matHeaderCellDef> Teléfono </mat-header-cell>
+      <mat-cell *matCellDef="let s"> {{ s.phone }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+      <mat-cell *matCellDef="let s"> {{ s.email }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="dateBirth">
+      <mat-header-cell *matHeaderCellDef> F. Nacimiento </mat-header-cell>
+      <mat-cell *matCellDef="let s"> {{ s.dateBirth | date }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="course">
+      <mat-header-cell *matHeaderCellDef> Curso </mat-header-cell>
+      <mat-cell *matCellDef="let s"> {{ s.course }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="location">
+      <mat-header-cell *matHeaderCellDef> Ubicación </mat-header-cell>
+      <mat-cell *matCellDef="let s">
+        {{ s.location?.department }} / {{ s.location?.province }} / {{ s.location?.district }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="academicCycle">
+      <mat-header-cell *matHeaderCellDef> Ciclo </mat-header-cell>
+      <mat-cell *matCellDef="let s"> {{ s.academicCycle }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+      <mat-cell *matCellDef="let s">
+        <ng-container *ngIf="s.status === 'A'">
+          <button mat-icon-button color="primary" (click)="onEdit(s)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="delete(s.idStudent)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="s.status === 'I'">
+          <button mat-icon-button color="accent" (click)="restore(s.idStudent)">
+            <mat-icon>restore</mat-icon>
+          </button>
+        </ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</mat-card>

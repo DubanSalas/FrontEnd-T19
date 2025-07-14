@@ -1,0 +1,155 @@
+<h2 class="form-title">Formulario de Estudiante</h2>
+
+<form [formGroup]="studentForm" (ngSubmit)="onSubmit()" class="student-form-container">
+  <div class="form-grid">
+
+    <!-- Tipo de Documento -->
+    <mat-form-field appearance="outline">
+      <mat-label>Tipo de Documento</mat-label>
+      <mat-select formControlName="documentType">
+        <mat-option value="DNI">DNI</mat-option>
+        <mat-option value="CNE">CNE</mat-option>
+      </mat-select>
+      <mat-icon matPrefix>badge</mat-icon>
+      <mat-error *ngIf="isInvalid('documentType')">Campo obligatorio</mat-error>
+    </mat-form-field>
+
+    <!-- Número de Documento -->
+    <mat-form-field appearance="outline">
+      <mat-label>Número de Documento</mat-label>
+      <input matInput type="text" formControlName="documentNumber"
+             [attr.maxlength]="studentForm.get('documentType')?.value === 'DNI' ? 8 : 20"
+             (keypress)="allowOnlyNumbers($event)">
+      <mat-icon matPrefix>credit_card</mat-icon>
+      <mat-error *ngIf="hasError('documentNumber', 'required')">Campo obligatorio</mat-error>
+      <mat-error *ngIf="hasError('documentNumber', 'invalidDNI')">DNI debe tener 8 dígitos</mat-error>
+      <mat-error *ngIf="hasError('documentNumber', 'invalidCNE')">CNE debe tener hasta 20 dígitos</mat-error>
+    </mat-form-field>
+
+    <!-- Nombre -->
+    <mat-form-field appearance="outline">
+      <mat-label>Nombres</mat-label>
+      <input matInput formControlName="name">
+      <mat-icon matPrefix>person</mat-icon>
+      <mat-error *ngIf="hasError('name', 'required')">Campo obligatorio</mat-error>
+      <mat-error *ngIf="hasError('name', 'pattern')">Solo letras y espacios válidos</mat-error>
+    </mat-form-field>
+
+    <!-- Apellido -->
+    <mat-form-field appearance="outline">
+      <mat-label>Apellidos</mat-label>
+      <input matInput formControlName="surname">
+      <mat-icon matPrefix>person_outline</mat-icon>
+      <mat-error *ngIf="hasError('surname', 'required')">Campo obligatorio</mat-error>
+      <mat-error *ngIf="hasError('surname', 'pattern')">Solo letras y espacios válidos</mat-error>
+    </mat-form-field>
+
+    <!-- Dirección -->
+    <mat-form-field appearance="outline">
+      <mat-label>Dirección</mat-label>
+      <input matInput formControlName="address">
+      <mat-icon matPrefix>home</mat-icon>
+      <mat-error *ngIf="hasError('address', 'required')">Campo obligatorio</mat-error>
+      <mat-error *ngIf="hasError('address', 'pattern')">Caracteres inválidos</mat-error>
+    </mat-form-field>
+
+    <!-- Teléfono -->
+    <mat-form-field appearance="outline">
+      <mat-label>Teléfono</mat-label>
+      <input matInput type="text" formControlName="phone" maxlength="9" (keypress)="allowOnlyNumbers($event)">
+      <mat-icon matPrefix>call</mat-icon>
+      <mat-error *ngIf="hasError('phone', 'required')">Campo obligatorio</mat-error>
+      <mat-error *ngIf="hasError('phone', 'pattern')">Debe empezar con 9 y tener 9 dígitos</mat-error>
+      <mat-error *ngIf="hasError('phone', 'tooManyZeros')">Número inválido</mat-error>
+    </mat-form-field>
+
+    <!-- Email -->
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email">
+      <mat-icon matPrefix>mail</mat-icon>
+      <mat-error *ngIf="hasError('email', 'required')">Campo obligatorio</mat-error>
+      <mat-error *ngIf="hasError('email', 'email')">Correo inválido</mat-error>
+    </mat-form-field>
+
+    <!-- Fecha de Nacimiento -->
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha de Nacimiento</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dateBirth">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-icon matPrefix>calendar_today</mat-icon>
+      <mat-error *ngIf="hasError('dateBirth', 'required')">Campo obligatorio</mat-error>
+      <mat-error *ngIf="hasError('dateBirth', 'underage')">Debe tener 18 años o más</mat-error>
+    </mat-form-field>
+
+    <!-- Departamento -->
+    <mat-form-field appearance="outline">
+      <mat-label>Departamento</mat-label>
+      <mat-select formControlName="department" (selectionChange)="onDepartmentChange()">
+        <mat-option *ngFor="let dept of departamentos" [value]="dept.name">{{ dept.name }}</mat-option>
+      </mat-select>
+      <mat-icon matPrefix>place</mat-icon>
+      <mat-error *ngIf="isInvalid('department')">Campo obligatorio</mat-error>
+    </mat-form-field>
+
+    <!-- Provincia -->
+    <mat-form-field appearance="outline">
+      <mat-label>Provincia</mat-label>
+      <mat-select formControlName="province" (selectionChange)="onProvinceChange()">
+        <mat-option *ngFor="let prov of filteredProvincias" [value]="prov.name">{{ prov.name }}</mat-option>
+      </mat-select>
+      <mat-icon matPrefix>place</mat-icon>
+      <mat-error *ngIf="isInvalid('province')">Campo obligatorio</mat-error>
+    </mat-form-field>
+
+    <!-- Distrito -->
+    <mat-form-field appearance="outline">
+      <mat-label>Distrito</mat-label>
+      <mat-select formControlName="district">
+        <mat-option *ngFor="let dist of filteredDistritos" [value]="dist.name">{{ dist.name }}</mat-option>
+      </mat-select>
+      <mat-icon matPrefix>place</mat-icon>
+      <mat-error *ngIf="isInvalid('district')">Campo obligatorio</mat-error>
+    </mat-form-field>
+
+    <!-- Ciclo Académico -->
+    <mat-form-field appearance="outline">
+      <mat-label>Ciclo Académico</mat-label>
+      <mat-select formControlName="academicCycle">
+        <mat-option value="2025-I">Ciclo - I</mat-option>
+        <mat-option value="2025-II">Ciclo - II</mat-option>
+        <mat-option value="2026-I">Ciclo - III</mat-option>
+        <mat-option value="2026-II">Ciclo - IV</mat-option>
+        <mat-option value="2027-I">Ciclo - V</mat-option>
+        <mat-option value="2027-II">Ciclo - VI</mat-option>
+      </mat-select>
+      <mat-icon matPrefix>school</mat-icon>
+      <mat-error *ngIf="isInvalid('academicCycle')">Campo obligatorio</mat-error>
+    </mat-form-field>
+
+    <!-- Curso -->
+    <mat-form-field appearance="outline">
+      <mat-label>Curso</mat-label>
+      <mat-select formControlName="course">
+        <mat-option value="Matematica">Matemática</mat-option>
+        <mat-option value="Comunicacion">Comunicación</mat-option>
+        <mat-option value="Historia">Historia</mat-option>
+        <mat-option value="Algebra">Álgebra</mat-option>
+        <mat-option value="Ingles">Inglés</mat-option>
+      </mat-select>
+      <mat-icon matPrefix>book</mat-icon>
+      <mat-error *ngIf="isInvalid('course')">Campo obligatorio</mat-error>
+    </mat-form-field>
+  </div>
+
+  <!-- Botones -->
+  <div class="form-buttons">
+    <button mat-raised-button color="primary" type="submit">
+      <mat-icon>save</mat-icon>&nbsp;Guardar
+    </button>
+    <button mat-stroked-button color="warn" type="button" (click)="onCancel()">
+      <mat-icon>cancel</mat-icon>&nbsp;Cancelar
+    </button>
+  </div>
+</form>

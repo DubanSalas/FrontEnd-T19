@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "delipedidos": {
+    "my-project": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/delipedidos",
+            "outputPath": "dist/my-project",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -28,20 +28,20 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public/assets/",
-                "output": "assets/"
+                "input": "src/assets",
+                "output": "assets"
+              },
+              {
+                "glob": "favicon.ico",
+                "input": "src",
+                "output": "/"
               }
             ],
             "styles": [
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss"
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -65,16 +65,16 @@
               "sourceMap": true
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "development"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "delipedidos:build:production"
+              "buildTarget": "my-project:build:production"
             },
             "development": {
-              "buildTarget": "delipedidos:build:development"
+              "buildTarget": "my-project:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -94,8 +94,13 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public/assets/",
-                "output": "assets/"
+                "input": "src/assets",
+                "output": "assets"
+              },
+              {
+                "glob": "favicon.ico",
+                "input": "src",
+                "output": "/"
               }
             ],
             "styles": [
@@ -107,8 +112,5 @@
         }
       }
     }
-  },
-  "cli": {
-    "analytics": "60cbdc54-cdaf-48bd-9ff4-ad2b2ab7fd65"
   }
 }

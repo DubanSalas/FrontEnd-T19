@@ -1,53 +1,66 @@
-.header-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
+::ng-deep .custom-toolbar.mat-toolbar {
+  background-color: #34495e; // color profesional
+  color: #ffffff;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  padding: 0 24px;
+  height: 64px;
+  font-family: 'Segoe UI', Roboto, sans-serif;
 
-  height: 60px;
-  padding: 0 16px;
-  background-color: #444; // Gris oscuro suave
-  color: #fff;
-  border-bottom: 1px solid #ccc;
-
-  .left-section,
-  .center-section,
-  .right-section {
+  .toolbar-left {
     display: flex;
     align-items: center;
-  }
+    gap: 12px;
 
-  .left-section {
-    .logo {
-      width: 100px;
-      height: auto;
-      margin-right: 16px;
+    mat-icon {
+      font-size: 28px;
+      color: #ecf0f1;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #ecf0f1;
     }
   }
 
-  .center-section {
-    flex: 1;
-    justify-content: center;
+  .toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
 
-    .title-bar {
+    button[mat-button] {
       background-color: transparent;
-      font-size: 1.2rem;
+      color: #ecf0f1;
       font-weight: 500;
-      color: #fff;
-      text-align: center;
-      padding: 4px 12px;
+      font-size: 15px;
+      text-transform: none;
+
+      mat-icon {
+        margin-right: 6px;
+        color: #ecf0f1;
+      }
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+      }
     }
-  }
 
-  .right-section {
-    gap: 10px;
+    button.profile-button {
+      background: none;
+      border: none;
+      color: #ecf0f1;
 
-    button {
-      color: #fff;
+      mat-icon {
+        font-size: 30px;
+        color: #ecf0f1;
+      }
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+      }
     }
   }
 }
